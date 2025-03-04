@@ -56,4 +56,4 @@ class BlessAutoRun:
             except Exception as e:
                 Logger.log_message(self.current_num, self.total,
                                    f"ping failed {nodes.PubKey} {str(e)}", "error")
-            await asyncio.sleep(60)
+            await asyncio.sleep(600)
