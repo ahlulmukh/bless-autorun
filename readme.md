@@ -77,6 +77,7 @@ py main.py
 
 - Channel Telegram : [Telegram](https://t.me/elpuqus)
 - Channel WhatsApp : [Whatsapp](https://whatsapp.com/channel/0029VavBRhGBqbrEF9vxal1R)
+- Discord : [Discord](https://discord.com/invite/uKM4UCAccY)
 
 ## Donation
 
