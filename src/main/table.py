@@ -16,7 +16,7 @@ class TableView:
         self.selected_account_index = 0
         self.refresh_table_interval = 1
         self.console = Console()
-        self.screen_mode = True
+        self.screen_mode = False
 
     def build_ascii_banner(self):
         banner = r"""

@@ -22,9 +22,11 @@ This bot automates ping nodes bless
    cd bless-autorun
    ```
 
-2. Install the packages:
+2. Make virtual env:
 
    ```sh
+   python -m venv env
+
    pip install -r requirements.txt
    ```
 
