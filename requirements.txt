@@ -1,5 +1,4 @@
 cloudscraper==1.2.71
 fake_useragent==2.0.3
-keyboard==0.13.5
 Requests==2.32.3
-rich==13.9.4
+colorama

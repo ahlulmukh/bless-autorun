@@ -63,6 +63,26 @@ change all with your detail
              "PubKey": "pubkey5"
          }
      ]
+ },
+ {
+     "Token": "Yourtoken2",
+     "Nodes": [
+         {
+             "PubKey": "pubkey1"
+         },
+         {
+             "PubKey": "pubkey2"
+         },
+         {
+             "PubKey": "pubkey3"
+         },
+         {
+             "PubKey": "pubkey4"
+         },
+         {
+             "PubKey": "pubkey5"
+         }
+     ]
  }
 ]
 ```
