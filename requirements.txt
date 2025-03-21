@@ -1,4 +1,4 @@
-cloudscraper==1.2.71
+colorama==0.4.6
+curl_cffi==0.10.0
 fake_useragent==2.0.3
 Requests==2.32.3
-colorama

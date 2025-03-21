@@ -2,10 +2,11 @@ import asyncio
 import time
 from datetime import datetime
 
-import cloudscraper
 import requests
+from curl_cffi import requests
 from fake_useragent import UserAgent
 
+from src.utils.generator import Generator
 from src.utils.logger import Logger
 
 
@@ -17,21 +18,26 @@ class BlessAutoRun:
         self.session = requests.Session()
         self.ua = UserAgent()
 
-    def make_request_cs(self, method, url, data=None, headers=None):
-        scraper = cloudscraper.create_scraper()
+    def make_request(self, method, url, data=None, headers=None):
         proxy_dict = {"https": self.proxy} if self.proxy else None
         for _ in range(3):
             try:
                 headers = headers or {}
                 headers["User-Agent"] = self.ua.random
-                response = scraper.request(
-                    method, url, json=data, headers=headers, proxies=proxy_dict, timeout=60
+                response = requests.request(
+                    method=method,
+                    url=url,
+                    json=data,
+                    headers=headers,
+                    proxies=proxy_dict,
+                    timeout=60,
+                    impersonate="chrome99"
                 )
                 response.raise_for_status()
                 return response
             except Exception as e:
                 Logger.log_message(self.current_num, self.total,
-                                   f"request failed: {str(e)}", "error")
+                                   f"Request failed: {str(e)}", "error")
                 time.sleep(12)
         return None
 
@@ -60,7 +66,7 @@ class BlessAutoRun:
                 "User-Agent": self.ua.random,
                 "Content-Type": "application/json"
             }
-            response = self.make_request_cs("GET", url, headers=headers)
+            response = self.make_request("GET", url, headers=headers)
             if response and response.status_code == 200:
                 Logger.log_message(self.current_num, self.total,
                                    "Data account retrived succesfully", "success")
@@ -75,15 +81,23 @@ class BlessAutoRun:
     async def ping_node(self, nodes, auth_token):
         Logger.log_message(self.current_num, self.total,
                            f"Trying to ping node", "process")
+        signature = Generator.generate_hash()
         try:
             url = f"https://gateway-run.bls.dev/api/v1/nodes/{nodes.PubKey}/ping"
             payload = {}
             headers = {
                 "Authorization": f"Bearer {auth_token}",
                 "User-Agent": self.ua.random,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                "Accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
+                "Origin": "chrome-extension://pljbjcehnhcnofmkdbjolghdcjnmekia",
+                "Sec-Fetch-Dest": "empty",
+                "Sec-Fetch-Mode": "cors",
+                "Sec-Fetch-Site": "cross-site",
+                "x-extension-signature": signature
             }
-            response = self.make_request_cs(
+            response = self.make_request(
                 "POST", url, data=payload, headers=headers)
 
             if response and response.status_code == 200:
